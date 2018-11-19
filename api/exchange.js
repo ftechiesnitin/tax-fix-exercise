@@ -39,7 +39,7 @@ const Exchange = {
     			rates = utils.parseRateJson(_.get(JSON.parse(parsedResult), 'gesmes:Envelope.Cube.Cube.Cube'));
 
 
-    		if(rates[params.to] && rates[params.from]) {
+    		if(rates[params.to.toLowerCase()] && rates[params.from.toLowerCase()]) {
 
 				let TO = (params.to == 'eur' ? 1 : rates[params.to.toLowerCase()]),
 				    FROM = (params.from == 'eur' ? 1 : rates[params.from.toLowerCase()]);
