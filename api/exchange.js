@@ -41,8 +41,8 @@ const Exchange = {
 
     		if(rates[params.to] && rates[params.from]) {
 
-				let TO = (params.to == 'eur' ? 1 : rates[params.to]),
-				    FROM = (params.from == 'eur' ? 1 : rates[params.from]);
+				let TO = (params.to == 'eur' ? 1 : rates[params.to.toLowerCase()]),
+				    FROM = (params.from == 'eur' ? 1 : rates[params.from.toLowerCase()]);
 
 				let xr = np.round(np.times(np.divide(params.amount, FROM), TO), 5);
 
@@ -53,8 +53,8 @@ const Exchange = {
 					result: xr
 				};
 
-				data.rates[params.to] = rates[params.to];
-				data.rates[params.from] = rates[params.from];
+				data.rates[params.to] = rates[params.to.toLowerCase()];
+				data.rates[params.from] = rates[params.from.toLowerCase()];
 
 		    	DB.insertOne(collectionName, data, (error, result) => {
 	    			if(error) return response.serverError(res, error);
