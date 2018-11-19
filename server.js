@@ -15,9 +15,10 @@ app.use(compression());
 // test api
 app.get('/test', (req, res) => res.status(200).json({}));
 
+// load apis
 const exchange = require('./api/exchange');
 
 // currency exchange api
-app.get('/api/exchange/rates', exchange.rates);
+app.post('/api/exchange/rates', exchange.rates);
 
 app.listen(cfg.PORT, () => console.log('Listening to port ' + cfg.PORT));
