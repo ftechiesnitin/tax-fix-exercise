@@ -1,0 +1,33 @@
+{
+  "name": "tax-fix-exercise",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "JUNIT_REPORT_PATH=test-result/result.xml JUNIT_REPORT_STACK=1 mocha --timeout 25000 --colors --reporter mocha-jenkins-reporter || true"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ftechiesnitin/tax-fix-exercise.git"
+  },
+  "author": "ftechiesnitin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ftechiesnitin/tax-fix-exercise/issues"
+  },
+  "homepage": "https://github.com/ftechiesnitin/tax-fix-exercise#readme",
+  "dependencies": {
+    "compression": "^1.7.3",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
+    "helmet": "^3.15.0",
+    "lodash": "^4.17.11"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "mocha-jenkins-reporter": "^0.4.1",
+    "supertest": "^3.3.0"
+  }
+}
