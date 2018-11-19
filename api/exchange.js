@@ -53,8 +53,8 @@ const Exchange = {
 					result: xr
 				};
 
-				data.rates[params.to] = rates[params.to.toLowerCase()];
-				data.rates[params.from] = rates[params.from.toLowerCase()];
+				data.rates[params.to.toLowerCase()] = rates[params.to.toLowerCase()];
+				data.rates[params.from.toLowerCase()] = rates[params.from.toLowerCase()];
 
 		    	DB.insertOne(collectionName, data, (error, result) => {
 	    			if(error) return response.serverError(res, error);
