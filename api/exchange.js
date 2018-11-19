@@ -2,10 +2,14 @@
 const	_ = require('lodash');
 const request = require('request');
 const xmljs = require('xml-js');
+const np = require('number-precision');
 //local modules
+const DB = require('../db/mongoBaseDao');
 const utils = require('../common/utils');
 const validate = require('../common/validate');
 const response = require('../common/response');
+// collection name
+let collectionName = 'xr_rate_logging';
 
 const Exchange = {
     // exchange rates
@@ -35,12 +39,32 @@ const Exchange = {
     			rates = utils.parseRateJson(_.get(JSON.parse(parsedResult), 'gesmes:Envelope.Cube.Cube.Cube'));
 
 
-			let TO = (params.to == 'eur' ? 1 : rates[params.to]),
-			    FROM = (params.from == 'eur' ? 1 : rates[params.from]);
+    		if(rates[params.to] && rates[params.from]) {
 
-			let xr = np.round(np.times(np.divide(params.amount, FROM), TO), 5);
+				let TO = (params.to == 'eur' ? 1 : rates[params.to]),
+				    FROM = (params.from == 'eur' ? 1 : rates[params.from]);
 
-      		return response.success(res, { success: 'ok', data: xr })
+				let xr = np.round(np.times(np.divide(params.amount, FROM), TO), 5);
+
+				let data = {
+					createdAt: new Date().getTime(),
+					request: params,
+					rates: {},
+					result: xr
+				};
+
+				data.rates[params.to] = rates[params.to];
+				data.rates[params.from] = rates[params.from];
+
+		    	DB.insertOne(collectionName, data, (error, result) => {
+	    			if(error) return response.serverError(res, error);
+
+		      		return response.success(res, { success: 'ok', data: xr });
+				});
+    		} else {
+
+    			return response.notFound(res, 'currency-not-found')
+    		}
     	});
     }
 };

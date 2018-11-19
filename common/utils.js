@@ -1,3 +1,4 @@
+const   _ = require('lodash');
 // utils modules
 const Utils = {
 
