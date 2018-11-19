@@ -59,7 +59,7 @@ const Exchange = {
 		    	DB.insertOne(collectionName, data, (error, result) => {
 	    			if(error) return response.serverError(res, error);
 
-		      		return response.success(res, { success: 'ok', data: xr });
+		      		return response.success(res, { xr: xr });
 				});
     		} else {
 
